@@ -1,0 +1,6 @@
+# On Google Colab, torch is already installed.
+torch
+datasets
+tokenizers
+tensorboard
+tqdm
