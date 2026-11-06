@@ -45,7 +45,6 @@ Implementation notes
 ├── train.py            # tokenizers, data loaders, training loop, validation, greedy decode
 ├── translate.py        # load a checkpoint and translate a sentence
 ├── config.py           # all hyper-parameters and file paths
-├── prepare_data.py     # converts the Kaggle CSV into the format train.py expects
 ├── colab_run.ipynb     # run everything on a free Colab GPU
 ├── requirements.txt
 └── assets/             # explainer video + training-log screenshot
@@ -57,22 +56,14 @@ Trained on the **Hindi–English parallel corpus** from Kaggle by *vaibhavkumar1
 
 👉 <https://www.kaggle.com/datasets/vaibhavkumar11/hindi-english-parallel-corpus>
 
-The dataset is **not included** in this repo (size and licensing — please check the terms on the Kaggle page). To reproduce:
-
-1. Download the dataset from Kaggle and unzip it.
-2. Convert it to the format the code expects (a CSV with columns `English` and `Hindi`):
-   ```bash
-   python prepare_data.py --input path/to/downloaded.csv                 # keep all rows
-   python prepare_data.py --input path/to/downloaded.csv --max-rows 200000   # or a random subset
-   ```
-   This writes `Dataset_English_Hindi.csv` next to the code. (If your CSV already has `English` / `Hindi` columns you can just rename it.)
+The dataset is **not included** in this repo (size and licensing — please check the terms on the Kaggle page). To reproduce download the dataset from Kaggle and unzip it.
 
 For reference, my run used roughly 180K training pairs (2,803 batches × batch size 64 per epoch).
 
 ## Quick start
 
 ### Option A — Google Colab (recommended)
-1. Upload this folder and `Dataset_English_Hindi.csv` to Google Drive (e.g. `MyDrive/en_hi_transformer/`).
+1. Upload this folder and dataset file to Google Drive (e.g. `MyDrive/en_hi_transformer/`).
 2. Open `colab_run.ipynb` in Colab and choose **Runtime → Change runtime type → GPU**.
 3. Set `PROJECT` in the notebook to your Drive folder and run the cells top to bottom. If Colab disconnects, re-run the training cell — it resumes from the latest checkpoint.
 
@@ -81,7 +72,6 @@ For reference, my run used roughly 180K training pairs (2,803 batches × batch s
 git clone <this-repo-url>
 cd en-hi-transformer
 pip install -r requirements.txt
-python prepare_data.py --input path/to/downloaded.csv
 python train.py                      # a CUDA GPU is strongly recommended
 ```
 
